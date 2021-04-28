@@ -13,45 +13,26 @@ Create a function add that takes a String and returns a String:
 Allow the add method to handle an unknow number of arguments.
 
 ## Newline as separator
-Allow the add method to handle newlines as separators:
-
-- "1\n2,3" should return "6".
-- "175.2,\n35" is invalid and should return the message "Number expected but '\n' found at position 6."
-
-## Missing number in last position
-Don’t allow the input to end in a separator.
-
-"1,3," is invalid and should return the message Number expected but EOF found.
-
-## Custom separators
-Allow the add method to handle a different delimiter. To change the delimiter, the beginning of the input will contain a separate line that looks like this:
-
-`//[delimiter]\n[numbers]`
-- "//;\n1;2" should return "3"
-- "//|\n1|2|3" should return "6"
-- "//sep\n2sep3" should return "5"
-- "//|\n1|2,3" is invalid and should return the message "'|' expected but ',' found at position 3."
-All existing scenarios should work as before.
+Allow the Add method to handle new lines between numbers (instead of commas).
+- Example: `“1\n2,3”` should return 6.
+- Example: `“1,\n”` is invalid, but you don’t need a test for this case.
+- Only test correct inputs – there is no need to deal with invalid inputs for this kata.
 
 ## Negative numbers
-Calling add with negative numbers will return the message "Negative not allowed : " listing all negative numbers that were in the list of numbers.
+Calling Add with a negative number will throw an exception “Negatives not allowed: “ listing all negative numbers that were in the list of numbers.
+- Example `“-1,2”` throws “Negatives not allowed: -1”
+- Example `“2,-4,3,-5”` throws “Negatives not allowed: -4,-5”
 
-- "-1,2" is invalid and should return the message "Negative not allowed : -1"
-- "2,-4,-5" is invalid and should return the message "Negative not allowed : -4, -5"
 
-## Multiple errors
-Calling add with multiple errors will return all error messages separated by newlines.
+## Numbers bigger than 1000
+Numbers bigger than 1000 should be ignored.
+- Example: `“1001,2”` returns 2
 
-"-1,,2" is invalid and return the message "Negative not allowed : -1\nNumber expected but ',' found at position 3."
-
-## Errors management
-Introduce an internal add function returning a number instead of a String, and test many solutions for the error messages.
-
-- Exception
-- maybe and monad approch
-- POSIX return code with message managemement
-- tuple with error struct like in Go
-- etc.
+## Custom separators
+Allow the Add method to handle a different delimiter:
+- To change the delimiter, the beginning of the string will contain a separate line that looks like this: `“//[delimiter]\n[numbers]”`
+- Example: `“//;\n1;2”` should return 3 (the delimiter is ;)
+- This first line is optional; all existing scenarios (using , or \n) should work as before.
 
 ## Other operations
 Write a function for multiply with same rules

@@ -44,5 +44,4 @@ describe('string calculator - addition - Many numbers -', () => {
   it('should return "134" when "4,80,37,10,1,2" is passed', () => {
     expect(stringCalculator.add("4,80,37,10,1,2")).toBe("134");
   });
-
 });
