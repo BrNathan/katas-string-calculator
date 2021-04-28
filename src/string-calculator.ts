@@ -12,7 +12,9 @@ export class StringCalculator {
     }
     else if (this.isCommaPresent(arg0)) {
       let numbers: number[] = arg0.split(this.COMMA_SEPARATOR).map((value) => { return +value });
-      return (numbers[0] + numbers[1]).toString();
+      return numbers.reduce((sum: number, currentNumber: number) => {
+        return sum + currentNumber;
+      }, 0).toString();
     }
     return arg0;
   }

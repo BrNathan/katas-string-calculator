@@ -30,3 +30,19 @@ describe('string calculator - addition - First Step -', () => {
     expect(stringCalculator.add("104,45")).toBe("149");
   });
 });
+
+describe('string calculator - addition - Many numbers -', () => {
+  let stringCalculator: StringCalculator;
+  beforeEach(() => {
+    stringCalculator = new StringCalculator();
+  });
+
+  it('should return "3" when "0,1,2" is passed', () => {
+    expect(stringCalculator.add("0,1,2")).toBe("3");
+  });
+
+  it('should return "134" when "4,80,37,10,1,2" is passed', () => {
+    expect(stringCalculator.add("4,80,37,10,1,2")).toBe("134");
+  });
+
+});
