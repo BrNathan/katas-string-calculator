@@ -1,0 +1,27 @@
+{
+  "name": "katas-string-calculator",
+  "version": "1.0.0",
+  "description": "kata string calculator",
+  "main": "index.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "test:dev": "jest --watchAll"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BrNathan/katas-string-calculator.git"
+  },
+  "author": "BrNathan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BrNathan/katas-string-calculator/issues"
+  },
+  "homepage": "https://github.com/BrNathan/katas-string-calculator#readme",
+  "devDependencies": {
+    "@types/jest": "^26.0.23",
+    "jest": "^26.6.3",
+    "ts-jest": "^26.5.5",
+    "typescript": "^4.2.4"
+  }
+}
