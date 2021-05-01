@@ -45,3 +45,30 @@ describe('string calculator - addition - Many numbers -', () => {
     expect(stringCalculator.add("4,80,37,10,1,2")).toBe("134");
   });
 });
+
+describe('string calculator - addition - New line separator -', () => {
+  let stringCalculator: StringCalculator;
+  beforeEach(() => {
+    stringCalculator = new StringCalculator();
+  });
+  
+  it('should return "6" when "4\\n2" is passed', () => {
+    expect(stringCalculator.add("4\n2")).toBe("6");
+  });
+  
+  it('should return "16" when "4\\n2\\n10" is passed', () => {
+    expect(stringCalculator.add("4\n2\n10")).toBe("16");
+  });
+
+  it('should return "6" when "1\\n2,3" is passed', () => {
+    expect(stringCalculator.add("1\n2,3")).toBe("6");
+  });
+
+  it('should return "12" when "1\\n2,3\\n6" is passed', () => {
+    expect(stringCalculator.add("1\n2,3\n6")).toBe("12");
+  });
+
+  it('should return "36" when "1,2,3\\n6\\n8\\n10\\n6" is passed', () => {
+    expect(stringCalculator.add("1,2,3\n6\n8\n10\n6")).toBe("36");
+  });
+});
