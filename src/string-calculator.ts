@@ -1,3 +1,5 @@
+import { NegativeNumberError } from "./error";
+
 export class StringCalculator {
   private EMPTY_STRING = "";
   private NULL_SUM = "0";
@@ -25,9 +27,17 @@ export class StringCalculator {
   }
 
   private sumListOfNumbers(list: number[]): number {
-    return list.reduce((sum: number, currentNumber: number) => {
-      return sum + currentNumber;
+    const negativeNumbers: number[] = [];
+    const sum: number = list.reduce((tempSum: number, currentNumber: number) => {
+      if (currentNumber < 0) {
+        negativeNumbers.push(currentNumber);
+      }
+      return tempSum + currentNumber;
     }, 0);
+    if (negativeNumbers.length > 0) {
+      throw new NegativeNumberError(negativeNumbers);
+    }
+    return sum;
   }
 
   add(arg0: string): string {
@@ -42,7 +52,7 @@ export class StringCalculator {
       }
       return this.addWithCommaSeparator(newString);
     }
-    return arg0;
+    return this.sumListOfNumbers([+arg0]).toString();
   }
 
 

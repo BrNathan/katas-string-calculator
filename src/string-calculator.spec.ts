@@ -71,4 +71,32 @@ describe('string calculator - addition - New line separator -', () => {
   it('should return "36" when "1,2,3\\n6\\n8\\n10\\n6" is passed', () => {
     expect(stringCalculator.add("1,2,3\n6\n8\n10\n6")).toBe("36");
   });
+
+});
+
+describe('string calculator - addition - Negative numbers -', () => {
+  let stringCalculator: StringCalculator;
+  beforeEach(() => {
+    stringCalculator = new StringCalculator();
+  });
+  
+  it('should throws "Negatives not allowed: -2" when "-2" is passed', () => {
+    expect(() => {stringCalculator.add("-2")}).toThrow(/-2/);
+  });
+
+  it('should throws "Negatives not allowed: -1" when "-1,2" is passed', () => {
+    expect(() => {stringCalculator.add("-1,2")}).toThrow(/-1/);
+  });
+
+  it('should throws "Negatives not allowed: -1" when "2,-1,2" is passed', () => {
+    expect(() => {stringCalculator.add("2,-1,2")}).toThrow(/-1/);
+  });
+
+  it('should throws "Negatives not allowed: -1,-2" when "2,-1,-2" is passed', () => {
+    expect(() => {stringCalculator.add("2,-1,-2")}).toThrow(/-1,-2/);
+  });
+
+  it('should throws "Negatives not allowed: -2,-1,-2,-100" when "-2,-1,-2,-100" is passed', () => {
+    expect(() => {stringCalculator.add("-2,-1,-2,-100")}).toThrow(/-2,-1,-2,-100/);
+  });
 });
