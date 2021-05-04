@@ -4,6 +4,7 @@ export class StringCalculator {
   private EMPTY_STRING = "";
   private COMMA_SEPARATOR = ",";
   private NEW_LINE_SEPARATOR = "\n";
+  private CUSTOM_DELIMITER_REGEX = /\/\/(\D)\n/;
 
   private isCommaPresent(str: string): boolean {
     return str.indexOf(this.COMMA_SEPARATOR) > -1;
@@ -39,8 +40,13 @@ export class StringCalculator {
     return sum;
   }
 
-  private getListOfNumbers(str : string[]): number[] {
+  private getListOfNumbers(str: string[]): number[] {
     return this.convertStringListToNumberList(str);
+  }
+
+  private isDelimiterPresent(str: string): boolean {
+    const matches = this.CUSTOM_DELIMITER_REGEX.exec(str);
+    return this.isCommaPresent(str) || this.isNewLinePresent(str) || matches !== null;
   }
 
   add(arg0: string): string {
@@ -48,17 +54,26 @@ export class StringCalculator {
     if (arg0 === this.EMPTY_STRING) {
       numbersList = [];
     }
-    else if (this.isCommaPresent(arg0) || this.isNewLinePresent(arg0)) {
-      let newString = arg0.slice();
-      if (this.isNewLinePresent(arg0)) {
-        const regex = new RegExp(this.NEW_LINE_SEPARATOR, 'g');
-        newString = newString.replace(regex, this.COMMA_SEPARATOR);
+    else if (this.isDelimiterPresent(arg0)) {
+      const matches = this.CUSTOM_DELIMITER_REGEX.exec(arg0);
+      let delimiter = this.NEW_LINE_SEPARATOR;
+      let newString: string = arg0.slice();
+      if (matches !== null) {
+        delimiter = matches[1];
+        newString = arg0.slice(matches[0].length - 1);
       }
-      numbersList = this.getListOfNumbers(this.separateNumbers(newString, this.COMMA_SEPARATOR));
+      const stringAfterCustom = this.replaceDelimiterByOtherDelimiter(newString, delimiter, this.COMMA_SEPARATOR);
+      numbersList = this.getListOfNumbers(this.separateNumbers(stringAfterCustom, this.COMMA_SEPARATOR));
     }
     else {
       numbersList = [+arg0];
     }
     return this.sumListOfNumbers(numbersList).toString();
+  }
+
+  private replaceDelimiterByOtherDelimiter(text: string, replacedDelimiter: string, newDelimiter: string) {
+    const regex = new RegExp(replacedDelimiter, 'g');
+    text = text.replace(regex, newDelimiter);
+    return text;
   }
 }

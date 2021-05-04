@@ -119,3 +119,30 @@ describe('string calculator - addition - Numbers bigger than 1000 -', () => {
     expect(stringCalculator.add("2,97947")).toBe("2");
   });
 });
+
+describe('string calculator - addition - Custom separators -', () => {
+  let stringCalculator: StringCalculator;
+  beforeEach(() => {
+    stringCalculator = new StringCalculator();
+  });
+
+  it('should return "1" when "//#\\n1" is passed', () => {
+    expect(stringCalculator.add("//#\n1")).toBe("1");
+  });
+
+  it('should return "3" when "//#\\n1#2" is passed', () => {
+    expect(stringCalculator.add("//#\n1#2")).toBe("3");
+  });
+
+  it('should return "3" when "//;\\n1;2" is passed', () => {
+    expect(stringCalculator.add("//;\n1;2")).toBe("3");
+  });
+
+  it('should return "3" when "//A\\n1A2" is passed', () => {
+    expect(stringCalculator.add("//A\n1A2")).toBe("3");
+  });
+
+  it('should return "8" when "//@\\n1@2@10002@5" is passed', () => {
+    expect(stringCalculator.add("//@\n1@2@10002@5")).toBe("8");
+  });
+});
