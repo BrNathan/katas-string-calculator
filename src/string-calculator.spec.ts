@@ -51,11 +51,11 @@ describe('string calculator - addition - New line separator -', () => {
   beforeEach(() => {
     stringCalculator = new StringCalculator();
   });
-  
+
   it('should return "6" when "4\\n2" is passed', () => {
     expect(stringCalculator.add("4\n2")).toBe("6");
   });
-  
+
   it('should return "16" when "4\\n2\\n10" is passed', () => {
     expect(stringCalculator.add("4\n2\n10")).toBe("16");
   });
@@ -79,24 +79,43 @@ describe('string calculator - addition - Negative numbers -', () => {
   beforeEach(() => {
     stringCalculator = new StringCalculator();
   });
-  
+
   it('should throws "Negatives not allowed: -2" when "-2" is passed', () => {
-    expect(() => {stringCalculator.add("-2")}).toThrow(/-2/);
+    expect(() => { stringCalculator.add("-2") }).toThrow(/-2/);
   });
 
   it('should throws "Negatives not allowed: -1" when "-1,2" is passed', () => {
-    expect(() => {stringCalculator.add("-1,2")}).toThrow(/-1/);
+    expect(() => { stringCalculator.add("-1,2") }).toThrow(/-1/);
   });
 
   it('should throws "Negatives not allowed: -1" when "2,-1,2" is passed', () => {
-    expect(() => {stringCalculator.add("2,-1,2")}).toThrow(/-1/);
+    expect(() => { stringCalculator.add("2,-1,2") }).toThrow(/-1/);
   });
 
   it('should throws "Negatives not allowed: -1,-2" when "2,-1,-2" is passed', () => {
-    expect(() => {stringCalculator.add("2,-1,-2")}).toThrow(/-1,-2/);
+    expect(() => { stringCalculator.add("2,-1,-2") }).toThrow(/-1,-2/);
   });
 
   it('should throws "Negatives not allowed: -2,-1,-2,-100" when "-2,-1,-2,-100" is passed', () => {
-    expect(() => {stringCalculator.add("-2,-1,-2,-100")}).toThrow(/-2,-1,-2,-100/);
+    expect(() => { stringCalculator.add("-2,-1,-2,-100") }).toThrow(/-2,-1,-2,-100/);
+  });
+});
+
+describe('string calculator - addition - Numbers bigger than 1000 -', () => {
+  let stringCalculator: StringCalculator;
+  beforeEach(() => {
+    stringCalculator = new StringCalculator();
+  });
+
+  it('should return "0" when "1001" is passed', () => {
+    expect(stringCalculator.add("1001")).toBe("0");
+  });
+
+  it('should return "2" when "1001,2" is passed', () => {
+    expect(stringCalculator.add("1001,2")).toBe("2");
+  });
+
+  it('should return "2" when "2,97947" is passed', () => {
+    expect(stringCalculator.add("2,97947")).toBe("2");
   });
 });

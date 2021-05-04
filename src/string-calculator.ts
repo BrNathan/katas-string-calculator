@@ -2,7 +2,6 @@ import { NegativeNumberError } from "./error";
 
 export class StringCalculator {
   private EMPTY_STRING = "";
-  private NULL_SUM = "0";
   private COMMA_SEPARATOR = ",";
   private NEW_LINE_SEPARATOR = "\n";
 
@@ -22,15 +21,15 @@ export class StringCalculator {
     return str.split(separator);
   }
 
-  private separateNumbersOfComma(str: string): string[] {
-    return this.separateNumbers(str, this.COMMA_SEPARATOR);
-  }
-
   private sumListOfNumbers(list: number[]): number {
     const negativeNumbers: number[] = [];
     const sum: number = list.reduce((tempSum: number, currentNumber: number) => {
       if (currentNumber < 0) {
         negativeNumbers.push(currentNumber);
+        return tempSum;
+      }
+      else if (currentNumber > 1000) {
+        return tempSum;
       }
       return tempSum + currentNumber;
     }, 0);
@@ -40,9 +39,14 @@ export class StringCalculator {
     return sum;
   }
 
+  private getListOfNumbers(str : string[]): number[] {
+    return this.convertStringListToNumberList(str);
+  }
+
   add(arg0: string): string {
+    let numbersList: number[];
     if (arg0 === this.EMPTY_STRING) {
-      return this.NULL_SUM;
+      numbersList = [];
     }
     else if (this.isCommaPresent(arg0) || this.isNewLinePresent(arg0)) {
       let newString = arg0.slice();
@@ -50,14 +54,11 @@ export class StringCalculator {
         const regex = new RegExp(this.NEW_LINE_SEPARATOR, 'g');
         newString = newString.replace(regex, this.COMMA_SEPARATOR);
       }
-      return this.addWithCommaSeparator(newString);
+      numbersList = this.getListOfNumbers(this.separateNumbers(newString, this.COMMA_SEPARATOR));
     }
-    return this.sumListOfNumbers([+arg0]).toString();
-  }
-
-
-  private addWithCommaSeparator(arg0: string) {
-    let numbers: number[] = this.convertStringListToNumberList(this.separateNumbersOfComma(arg0));
-    return this.sumListOfNumbers(numbers).toString();
+    else {
+      numbersList = [+arg0];
+    }
+    return this.sumListOfNumbers(numbersList).toString();
   }
 }
